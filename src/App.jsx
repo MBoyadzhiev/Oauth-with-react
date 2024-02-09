@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import AuthLogin from './components/login';
+import AuthProfile from './authProfile';
+import AuthLogout from './components/logout';
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -13,7 +16,6 @@ function App() {
   };
 
   const handleLogout = () => {
-    // Clear user-related information and reset the state
     setUserName('');
   };
 
@@ -32,6 +34,10 @@ function App() {
           }}
         />
       )}
+      <AuthLogin /> 
+      <AuthProfile />
+      <AuthLogout />
+
     </div>
   );
 }

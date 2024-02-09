@@ -1,13 +1,24 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Auth0Provider } from '@auth0/auth0-react';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const Root = () => (
   <React.StrictMode>
     <GoogleOAuthProvider clientId='560571786999-o77l5b4j89vkb17dcm8a6hi06b4tec9h.apps.googleusercontent.com'>
-    <App />
+      <Auth0Provider
+        domain="dev-nkc8vuzqi6ner6ae.us.auth0.com"
+        clientId="kCJRZS7XNWS6RKdZyeeygvzViDG5v4U6"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
+        <App />
+      </Auth0Provider>
     </GoogleOAuthProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Root />);
