@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-
-import { ChainlitAPI, sessionState, useChatSession } from "@chainlit/react-client";
+import { ChainlitAPI, useChatSession } from "@chainlit/react-client";
 import { Playground } from "./components/playground";
+import LoginScreen from "./components/loginScreen"
+
 
 const CHAINLIT_SERVER = "http://localhost:8000";
 
@@ -69,7 +70,6 @@ function App() {
     sendTokenToBackend();
   }, [idToken, session, connect]);
 
-
   const handleLogout = () => {
     setUserName('');
     setIdToken('');
@@ -77,23 +77,24 @@ function App() {
   };
 
   return (
-    <div>
-      {userName ? (
-        <div>
-          <p>Welcome, {userName}!</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div>
-          <GoogleLogin
-            onSuccess={handleLoginSuccess}
-            onError={() => console.log('Login failed')}
-          />
-          {verificationStatus && <p>{verificationStatus}</p>}
-        </div>
-      )}
-      <Playground />
-    </div>
+    <Router>
+<Routes>
+  <Route path="/login" element={<LoginScreen onSuccess={handleLoginSuccess} onError={() => console.log('Login failed')} />} />
+  <Route path="/chat" element={
+    userName ? (
+      <div>
+        <p>Welcome, {userName}!</p>
+        <button onClick={handleLogout}>Logout</button>
+        <Playground />
+      </div>
+    ) : (
+      <Navigate to="/login" />
+    )
+  } />
+  {/* Add a catch-all route for the root path */}
+  <Route path="/*" element={<Navigate to="/login" />} />
+</Routes>
+    </Router>
   );
 }
 
