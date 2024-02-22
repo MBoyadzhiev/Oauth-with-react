@@ -1,22 +1,26 @@
 import React from 'react';
 import GoogleLoginButton from "./googleLoginButton";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
+import profilePic from '../assets/clouddo_logo.png'
 
 const LoginScreen = ({ onSuccess, onError }) => {
-  const navigate = useNavigate(); // Use useNavigate hook
+  const navigate = useNavigate(); 
 
   const handleSuccess = (credentialResponse) => {
-    onSuccess(credentialResponse); // Pass the credentialResponse to the parent component
-    navigate('/chat'); // Navigate to the /chat route
+    onSuccess(credentialResponse); 
+    navigate('/chat'); 
   };
 
   return (
-    <div>
-      <h1>Login Screen</h1>
+    <div className='card-wrap'>
+    <div className='card'>
+      <h2 className='card-text'>Welcome to Clouddo Chatbot</h2>
+      <img className="card-image" src={profilePic} alt="profile picture" />
       <GoogleLoginButton
-        onSuccess={handleSuccess} // Use the modified handleSuccess function
+        onSuccess={handleSuccess} 
         onError={onError}
       />
+    </div>
     </div>
   );
 };

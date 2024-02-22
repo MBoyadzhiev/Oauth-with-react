@@ -46,7 +46,7 @@ export function Playground() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+    <div className="chat-home">
       <div className="flex-1 overflow-auto p-6">
         <div className="space-y-4">
           {messages.map((message) => renderMessage(message))}

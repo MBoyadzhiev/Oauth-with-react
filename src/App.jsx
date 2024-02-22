@@ -91,7 +91,6 @@ function App() {
       <Navigate to="/login" />
     )
   } />
-  {/* Add a catch-all route for the root path */}
   <Route path="/*" element={<Navigate to="/login" />} />
 </Routes>
     </Router>
